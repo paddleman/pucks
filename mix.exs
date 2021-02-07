@@ -46,9 +46,10 @@ defmodule Pucks.MixProject do
       {:ja_serializer, github: "vt-elixir/ja_serializer", branch: "master"},
       {:cors_plug, "~> 2.0.2"},
       {:geo_postgis, "~> 3.3.1"},
-      {:ueberauth, "~> 0.6.3"},
-      {:ueberauth_identity, "0.3.0"},
-      {:guardian, "2.1.1"},
+      {:joken, "~> 2.3.0"},
+      # {:ueberauth, "~> 0.6.3"},
+      # {:ueberauth_identity, "0.3.0"},
+      # {:guardian, "2.1.1"},
       {:comeonin, "~> 5.3.1"},
       {:bcrypt_elixir, "~> 2.2.0"},
 

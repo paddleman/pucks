@@ -8,7 +8,9 @@
 use Mix.Config
 
 config :pucks,
-  ecto_repos: [Pucks.Repo]
+  ecto_repos: [Pucks.Repo],
+  jwt_secret: System.get_env("JWT_SECRET") || "Av37mx6YjVtL9ZVnlu628ynHdSieRVzMW65wFDZMcQvPQfa+t9nE9bRn8TnIzmNI"
+
 
 # Configures the endpoint
 config :pucks, PucksWeb.Endpoint,
@@ -25,6 +27,8 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+
 
 #ja_serializer setup
 config :phoenix, :format_encoders,

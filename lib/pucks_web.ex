@@ -24,6 +24,37 @@ defmodule PucksWeb do
       import Plug.Conn
       import PucksWeb.Gettext
       alias PucksWeb.Router.Helpers, as: Routes
+
+      alias Pucks.People
+
+      def authenticate_user(conn, _params) do
+        try do
+          ["Bearer " <> token] = get_req_header(conn, "authorization")
+
+          signer = Joken.Signer.create("HS512", (Application.get_env(:pucks, :jwt_secret)))
+          claims = Token.verify_and_validate!(token, signer)
+
+          %{"sub" => user_id} = claims
+
+          user = People.get_user!(user_id)
+
+          params = Map.get(conn, :params) #assigning the :params from the connection to local map variable
+          |>Map.put(:current_user, user)  #adding a :current_user key to the map, and assigning its value to the user that was returned from the token
+
+          conn
+          |> Map.put(:params, params)   #assigning the :params map to the altered params map
+
+        rescue
+          _err ->
+            conn
+            |> put_status(:unauthorized)
+            |> put_view(PucksWeb.ErrorView)
+            |> render("401.json-api", %{detail: "User must be logged in to view this resource"})
+            |> halt
+        end
+      end
+
+
     end
   end
 

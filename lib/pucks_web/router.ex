@@ -4,16 +4,19 @@ defmodule PucksWeb.Router do
   pipeline :api do
     plug :accepts, ["json", "json-api"]
     plug JaSerializer.ContentTypeNegotiation
-    plug JaSerializer.Deserializer  
+    plug JaSerializer.Deserializer
 
   end
 
   scope "/", PucksWeb do
     pipe_through :api
-  
-  
-  
-  
+
+    resources "/users", UserController, only: [:create, :index, :delete]
+
+    post "/session", SessionController, :create
+    get "/user/me", UserController, :show_current
+
+
   end
 
   # Enables LiveDashboard only for development
