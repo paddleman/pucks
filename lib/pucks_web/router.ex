@@ -14,7 +14,7 @@ defmodule PucksWeb.Router do
     resources "/users", UserController, only: [:create, :index, :delete]
 
     post "/session", SessionController, :create
-    get "/user/me", UserController, :show_current
+    get "/users/me", UserController, :show_current
 
 
   end
